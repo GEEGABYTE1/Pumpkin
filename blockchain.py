@@ -1,4 +1,5 @@
 from block import Block
+import random
 
 class Blockchain:
     def __init__(self):
@@ -48,3 +49,11 @@ class Blockchain:
             proof = block.generate_hash()
         block.nonce = 0
         return proof
+
+    def random_dao_selector(self):
+        limit = len(self.chain)
+        random_idx = random.randint(0, limit - 1)
+        for block in range(len(self.chain)):
+            if block == random_idx:
+                return block
+
