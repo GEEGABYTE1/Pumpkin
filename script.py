@@ -3,9 +3,11 @@ from block import Block
 from blockchain import Blockchain
 from datetime import datetime, time
 from termcolor import colored
+from stack import Stack
 
 pumpkin = Blockchain()
 seed = Blockchain()
+background_stack = Stack()
 
 class Script:
     
@@ -18,12 +20,26 @@ class Script:
         if user_input == '/create_vote':
             self.create_vote()
         elif user_input == '/vote':
-            self.vote():
+            self.vote()
+
+
+    def add_vote(self):
+        try:
+            for i in range(background_stack.size):
+                random_block = pumpkin.random_dao_selector()
+                random_block_transaction = random_block.transactions
+                random_block_vote_count = random_block.vote_count 
+                random_block_vote = random_block_transaction[0]
+                background_stack.push(random_block_vote)
+        except:
+            pass
+                
+
 
     
 
     def print_current_votes(self):
-        pass
+        pass 
     def vote(self):
         pass
         
