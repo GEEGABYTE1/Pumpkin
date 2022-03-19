@@ -8,6 +8,7 @@ class Block:
         self.previous_hash = previous_hash
         self.nonce = 0
         self.hash = self.generate_hash()
+        self.vote_count = 0 
      
 
     def generate_hash(self):
