@@ -1,19 +1,32 @@
+from re import L
 from block import Block
 from blockchain import Blockchain
 from datetime import datetime, time
 from termcolor import colored
 
 pumpkin = Blockchain()
+seed = Blockchain()
 
 class Script:
     
     def __init__(self):
         print('-'*24)
         time.sleep(0.4)
+        pumpkin.print_blocks()
         user_input = str(input(': '))
         
-        if user_input == 'create_vote':
+        if user_input == '/create_vote':
             self.create_vote()
+        elif user_input == '/vote':
+            self.vote():
+
+    
+
+    def print_current_votes(self):
+        pass
+    def vote(self):
+        pass
+        
     
     def create_vote(self):
         try:
@@ -27,6 +40,7 @@ class Script:
         except:
             print(colored('Vote not successfully deployed', 'red'))
     
+
 
         
 
