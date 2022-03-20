@@ -15,7 +15,7 @@ class Script:
         print('-'*24)
         time.sleep(0.4)
         while True:
-            pumpkin.print_blocks()
+            self.print_current_votes()
             user_input = str(input(': '))
             
             if user_input == '/create_vote':
@@ -41,8 +41,18 @@ class Script:
     
 
     def print_current_votes(self):
+        nodes = []
         current_node = background_stack.top_item
+        while current_node.get_link() != None:
+            nodes.append(current_node)
+            current_node = current_node.get_link()
         
+        print('Current Votes:  ')
+        print('-'*24)
+        for node in nodes:
+            print(node)
+
+            
 
 
 
