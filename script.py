@@ -14,13 +14,15 @@ class Script:
     def __init__(self):
         print('-'*24)
         time.sleep(0.4)
-        pumpkin.print_blocks()
-        user_input = str(input(': '))
-        
-        if user_input == '/create_vote':
-            self.create_vote()
-        elif user_input == '/vote':
-            self.vote()
+        while True:
+            pumpkin.print_blocks()
+            user_input = str(input(': '))
+            
+            if user_input == '/create_vote':
+                self.create_vote()
+            elif user_input == '/vote':
+                self.vote()
+            
 
 
     def add_vote(self):
@@ -32,14 +34,18 @@ class Script:
                 random_block_vote = random_block_transaction[0]
                 background_stack.push(random_block_vote)
         except:
-            pass
+            print(colored('Error', 'red'))
                 
-
+    
 
     
 
     def print_current_votes(self):
-        pass 
+        current_node = background_stack.top_item
+        
+
+
+
     def vote(self):
         pass
         
