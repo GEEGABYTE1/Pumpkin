@@ -1,9 +1,9 @@
-
+from node import Node
 class Stack:
     def __init__(self, top_item=None):
         self.top_item = top_item 
         self.size = 0
-        self.limit = 1000 
+        self.limit = 3 
 
     def is_empty(self):
         if self.size == 0:
