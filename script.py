@@ -79,7 +79,32 @@ class Script:
 
 
     def vote(self):
-        pass
+        user_num = int(input('Please choose a number from 1 - 3 for the corresponding vote you would like to give: '))
+        if user_num > background_stack.size:
+            print("That number does not correspond to a vote")
+        else:
+            current_node = background_stack.top_item
+            desired_vote = None
+            count = 1
+            while current_node:
+                if count == user_num:
+                    desired_vote = current_node 
+                else:
+                    count += 1
+                    current_node = current_node.get_link()
+            
+            desired_vote.value[list(desired_vote.value.keys())[0]] += 1
+            target_val = list(desired_vote.value.keys())[0]
+            for block in pumpkin.chain:
+                transaction = list(block.transactions.keys()[0])
+                if transaction == target_val:
+                    block.vote_count += 1
+                else:
+                    continue 
+        
+
+                
+            
         
         
         
