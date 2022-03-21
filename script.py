@@ -8,6 +8,7 @@ from stack import Stack
 
 pumpkin = Blockchain()
 background_stack = Stack()
+front_stack = Stack()
 
 
 class Script:
@@ -41,6 +42,23 @@ class Script:
                         self.vote_count += 1
                     else:
                         continue
+
+    def print_vote(self):
+        for i in range(3):
+            random_idx = pumpkin.random_dao_selector()
+            if random_idx == 0:
+                continue 
+            else:
+                counter = 0
+                current_node = background_stack.top_item 
+                while current_node:
+                    if counter == random_idx:
+                        front_stack.push(current_node.get_value())
+                        break 
+                    else:
+                        counter += 1
+                        current_node = current_node.get_link()
+    
 
 
             
