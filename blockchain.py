@@ -7,7 +7,7 @@ class Blockchain:
         self.unconfirmed_transactions = []
         self.genesis_block()
 
-    def genesis_block(self):
+    def genesis_block(self):        
         transactions = []
         genesis_block = Block(transactions, "0")
         genesis_block.generate_hash()
