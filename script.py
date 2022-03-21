@@ -11,6 +11,7 @@ pumpkin = Blockchain()
 seed = Blockchain()
 background_stack = Stack()
 
+
 class Script:
     backlog_track = []
     
@@ -18,8 +19,8 @@ class Script:
         print('-'*24)
         time.sleep(0.4)
         while True:
-            self.updated_lst = self.find_votes()
-            self.add_vote()
+            self.homescreen_stack = Stack()
+            self.homescreen_vote()
             self.print_current_votes()
             user_input = str(input(': '))
             
@@ -30,44 +31,30 @@ class Script:
                 pass 
             else:
                 print("Invalid Command")
-            
 
 
-    def add_vote(self):
-    
-        if len(pumpkin.chain) < 3:
-            for block in pumpkin.chain:
-                if len(block.transactions) == 0:
-                    continue 
-                block_transaction = block.transactions['Message']
-                if block_transaction in self.updated_lst:
-                    node_to_update = self.update_val(block_transaction)
-                    block_vote_count = block.vote_count 
-                    block_dict = {block_transaction: block_vote_count}
-                    node_to_update.value = block_dict 
-                else:        
-                    block_vote_count = block.vote_count
-                    block_dict = {block_transaction: block_vote_count}
-                    background_stack.push(block_dict) 
-        else:
-            try:
-                for i in range(background_stack.size):                                  # Update for Pushing
-                    random_block = pumpkin.random_dao_selector()
-                    if len(random_block.transactions) == 0:
-                        pass        
-                    
-                    random_block_transaction = random_block.transactions
-                    random_block_vote_count = random_block.vote_count 
-                    random_block_vote = random_block_transaction[0]
-                    block_dict = {random_block_vote: random_block_vote_count}
-                    background_stack.push(block_dict)
-            except:
-                print(colored('Error', 'red'))
 
-        if background_stack.size == 0:
+    def homescreen_vote(self):
+        indices = []
+        for i in range(3):
+            random_block = pumpkin.random_dao_selector()
+            indices.append(random_block)
+        
+        for block in indices:
+            self.homescreen_stack.push(block)
+        
+        
+
+
+
+    def add_vote(self, transaction):
+
+        if len(pumpkin.chain) == 1:
             print(colored('No Votes Have Been Made', 'white'))
         else:
-            pass
+            transaction_message = transaction['Message']
+            background_stack.push(transaction_message)
+            
 
     def update_val(self, transaction_new):
         current_node = background_stack.top_item 
@@ -89,7 +76,7 @@ class Script:
             transaction = current_node.value
             transaction_message = list(transaction.keys())[0]
             lst.append(transaction_message)
-            break
+            current_node = current_node.get_link()
         return lst
             
                     
@@ -97,7 +84,7 @@ class Script:
     def print_current_votes(self):
         nodes = []
         try:
-            current_node = background_stack.top_item
+            current_node = self.homescreen_votescreen_stack.top_item
             while current_node:
                 nodes.append(current_node)
                 current_node = current_node.get_link()
@@ -165,6 +152,7 @@ class Script:
             new_transaction = {'Message': message}
             pumpkin.add_block(new_transaction)
             time.sleep(0.2)
+            self.add_vote(new_transaction)
             print(colored('Vote successfully deployed', 'green'))
         except:
             print(colored('Vote not successfully deployed', 'red'))
