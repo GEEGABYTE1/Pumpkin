@@ -1,4 +1,5 @@
 
+from tkinter import E
 from block import Block
 from blockchain import Blockchain
 from datetime import datetime
@@ -17,6 +18,7 @@ class Script:
     def __init__(self):
 
         while True:
+            self.print_vote()
             user_input = str(input(': '))
             user_input = user_input.strip(' ')
             if user_input == '/create_vote':
@@ -38,19 +40,24 @@ class Script:
                 else:
                     transaction_message = list(transaction.values())[0]
                     if transaction_message == user_vote:
-                        background_stack.push(block)
+                        front_stack.push(block)
                         self.vote_count += 1
                     else:
                         continue
 
     def print_vote(self):
+        if len(pumpkin.chain) == 1:
+            print(colored('There have not been any votes made yet', 'white'))
+        past_numbers = []
         for i in range(3):
             random_idx = pumpkin.random_dao_selector()
             if random_idx == 0:
                 continue 
+            elif random_idx in past_numbers:
+                continue
             else:
-                counter = 0
-                current_node = background_stack.top_item 
+                counter = 1
+                current_node = front_stack.top_item 
                 while current_node:
                     if counter == random_idx:
                         front_stack.push(current_node.get_value())

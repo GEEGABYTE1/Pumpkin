@@ -52,7 +52,7 @@ class Blockchain:
 
     def random_dao_selector(self):
         limit = len(self.chain)
-        random_idx = random.randint(0, limit - 1)
+        random_idx = random.randint(0, limit)
         for block in range(len(self.chain)):
             if block == random_idx:
                 return block
