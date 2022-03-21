@@ -51,9 +51,10 @@ class Blockchain:
         return proof
 
     def random_dao_selector(self):
+        past_numbers = []
         limit = len(self.chain)
-        random_idx = random.randint(0, limit)
+        random_idx = random.randint(1, limit)
         for block in range(len(self.chain)):
             if block == random_idx:
-                return block
+                return self.chain[block]
 

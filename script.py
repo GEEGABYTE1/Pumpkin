@@ -48,24 +48,15 @@ class Script:
     def print_vote(self):
         if len(pumpkin.chain) == 1:
             print(colored('There have not been any votes made yet', 'white'))
-        past_numbers = []
+        
         for i in range(3):
-            random_idx = pumpkin.random_dao_selector()
-            if random_idx == 0:
-                continue 
-            elif random_idx in past_numbers:
-                continue
-            else:
-                counter = 1
-                current_node = front_stack.top_item 
-                while current_node:
-                    if counter == random_idx:
-                        front_stack.push(current_node.get_value())
-                        break 
-                    else:
-                        counter += 1
-                        current_node = current_node.get_link()
-    
+            random_block = pumpkin.random_dao_selector()
+            front_stack.push(random_block)
+        
+        current_node = front_stack.top_item 
+        while current_node:
+            if current_node.get_value() != None:
+                print(current_node.get_value())
 
 
             
