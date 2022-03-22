@@ -6,6 +6,7 @@ class Blockchain:
         self.chain = []
         self.unconfirmed_transactions = []
         self.genesis_block()
+        self.past_indices = [] 
 
     def genesis_block(self):        
         transactions = []
@@ -51,14 +52,10 @@ class Blockchain:
         return proof
 
     def random_dao_selector(self):
-        past_numbers = []
         limit = len(self.chain)
         random_idx = random.randint(1, limit)
         for block in range(len(self.chain)):
             if block == random_idx:
-                if block in past_numbers:
-                    continue 
-                else:
-                    return self.chain[block]
+                return self.chain[block]
             
 
