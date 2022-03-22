@@ -57,7 +57,7 @@ class Script:
             else:
                 self.background_stack.push(random_block)
         
-        current_node = self.front_stack.top_item 
+        current_node = self.background_stack.top_item 
         while current_node:
             if current_node.get_value() != None:
                 print(current_node.get_value())
