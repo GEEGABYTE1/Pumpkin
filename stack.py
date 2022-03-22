@@ -4,6 +4,7 @@ class Stack:
         self.top_item = top_item 
         self.size = 0
         self.limit = 3 
+        self.nodes = []
 
     def is_empty(self):
         if self.size == 0:
@@ -25,6 +26,7 @@ class Stack:
             new_node.set_link(self.top_item)
             self.top_item = new_node 
             self.size += 1
+            self.nodes.append(new_node)
         else:
             print("The Stack is Full")
 

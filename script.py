@@ -55,12 +55,18 @@ class Script:
             if random_block == None:
                 continue 
             else:
-                self.background_stack.push(random_block)
+                if random_block in self.background_stack.nodes:
+                    pass 
+                else:
+                    self.background_stack.push(random_block)
         
         current_node = self.background_stack.top_item 
         while current_node:
             if current_node.get_value() != None:
-                print(current_node.get_value())
+                block = current_node.get_value()
+                block_message = block.transactions['Message']
+                block_vote = block.vote_count 
+                print('Vote Proposal : {} || Vote Count: {}'.format(block_message, block_vote))
                 current_node = current_node.get_link()
             else:
                 break
