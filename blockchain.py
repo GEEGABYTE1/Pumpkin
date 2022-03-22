@@ -56,5 +56,9 @@ class Blockchain:
         random_idx = random.randint(1, limit)
         for block in range(len(self.chain)):
             if block == random_idx:
-                return self.chain[block]
+                if block in past_numbers:
+                    continue 
+                else:
+                    past_numbers.append(block)
+                    return self.chain[block]
 

@@ -9,7 +9,7 @@ from stack import Stack
 
 pumpkin = Blockchain()
 background_stack = Stack()
-front_stack = Stack()
+
 
 
 class Script:
@@ -40,7 +40,7 @@ class Script:
                 else:
                     transaction_message = list(transaction.values())[0]
                     if transaction_message == user_vote:
-                        front_stack.push(block)
+                        self.front_stack.push(block)
                         self.vote_count += 1
                     else:
                         continue
@@ -48,15 +48,22 @@ class Script:
     def print_vote(self):
         if len(pumpkin.chain) == 1:
             print(colored('There have not been any votes made yet', 'white'))
-        
+        self.background_stack = Stack()
+        self.front_stack = Stack()
         for i in range(3):
             random_block = pumpkin.random_dao_selector()
-            front_stack.push(random_block)
+            if random_block == None:
+                continue 
+            else:
+                self.background_stack.push(random_block)
         
-        current_node = front_stack.top_item 
+        current_node = self.front_stack.top_item 
         while current_node:
             if current_node.get_value() != None:
                 print(current_node.get_value())
+                current_node = current_node.get_link()
+            else:
+                break
 
 
             
@@ -66,3 +73,4 @@ class Script:
 
 
 running = Script()
+print(running)
