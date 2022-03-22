@@ -59,6 +59,6 @@ class Blockchain:
                 if block in past_numbers:
                     continue 
                 else:
-                    past_numbers.append(block)
                     return self.chain[block]
+            
 
