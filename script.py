@@ -39,7 +39,7 @@ class Script:
                     current_node_message = current_node_transaction['Message']
                     if current_node_message == user_vote:
                         current_node.get_value().vote_count += 1
-                        for block in self.pumpkin:
+                        for block in pumpkin:
                             block_transaction = block.transactions
                             block_message = block_transaction['Message']
                             if block_message == current_node_message:
@@ -80,19 +80,28 @@ class Script:
                         continue
 
     def print_vote(self):
-        if len(pumpkin.chain) == 1:
-            print(colored('There have not been any votes made yet', 'white'))
         self.background_stack = Stack()
         self.front_stack = Stack()
-        for i in range(3):
-            random_block = pumpkin.random_dao_selector()
-            if random_block == None:
-                continue 
-            else:
-                if random_block in self.background_stack.nodes:
-                    pass 
+        if len(pumpkin.chain) == 1:
+            print(colored('There have not been any votes made yet', 'white'))
+    
+        elif len(pumpkin.chain) <= 4:
+            for block_index in range(len(pumpkin.chain)):
+                if block_index == 0:
+                    continue 
                 else:
-                    self.background_stack.push(random_block)
+                    self.background_stack.push(pumpkin.chain[block_index])
+                    continue     
+        else: 
+            for i in range(3):
+                random_block = pumpkin.random_dao_selector()
+                if random_block == None:
+                    continue 
+                else:
+                    if random_block in self.background_stack.nodes:
+                        pass 
+                    else:
+                        self.background_stack.push(random_block)
         
         current_node = self.background_stack.top_item 
         while current_node:
