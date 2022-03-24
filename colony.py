@@ -4,7 +4,7 @@ from random import random
 from termcolor import colored
 import time
 from pymongo import MongoClient
-import datetime
+from datetime import datetime
 
 
 seed = Blockchain()
@@ -22,19 +22,21 @@ class Colony:
             
             user_input = str(input(': '))
             if user_input == '/global_chat':
-                server_runtime = GlobalChat(self)
+                server_runtime = GlobalChat()
+                server_runtime.chat(runtime=self)
             
 
 
-class GlobalChat(Colony):
+class GlobalChat():
     cluster = MongoClient('mongodb+srv://user:pass@seed.10ntx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
     db = cluster['seed']['messaging']
     all_messages = db.find({})
     chats = {}
     restart = False
+    db.insert_one({'Id': 'First', 'Message': 'Initial', 'Date': 'First', 'Time': 'Beginning'})
 
     
-    def chat(self):
+    def chat(self, runtime):
         while True:
             date = datetime.now().strftime('%x')
             for message in self.all_messages:
@@ -49,7 +51,7 @@ class GlobalChat(Colony):
                     pass
             
             
-            person = 'Name: {}'.format(self.user) 
+            person = 'Name: {}'.format(runtime.user) 
             message = input('Message: ')
             if message == '/quit':
                 break 
@@ -69,3 +71,5 @@ class GlobalChat(Colony):
         os.execv(sys.executable, ['python'] + sys.argv)
 
 
+running = Colony()
+print(running)
