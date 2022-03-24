@@ -23,6 +23,18 @@ class Script:
             user_input = user_input.strip(' ')
             if user_input == '/create_vote':
                 self.create_vote()
+            if user_input == '/vote':
+                self.vote()
+
+    
+    def vote(self):
+        try:
+            current_node = self.front_stack.top_item
+            while current_node:
+                if current_node.get_value() != None:
+                    pass
+        except:
+            print(colored("There are currently no votes made", 'red'))
 
     
     def create_vote(self):
