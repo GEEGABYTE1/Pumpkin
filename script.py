@@ -117,13 +117,3 @@ class Script:
                 current_node = current_node.get_link()
             else:
                 break
-
-
-            
-
-
-     
-
-
-running = Script()
-print(running)
