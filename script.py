@@ -23,8 +23,12 @@ class Script:
             user_input = user_input.strip(' ')
             if user_input == '/create_vote':
                 self.create_vote()
-            if user_input == '/vote':
+            elif user_input == '/vote':
                 self.vote()
+            elif user_input == '/quit':
+                break
+            else:
+                print("Incorrect Command")
 
     
     def vote(self):
