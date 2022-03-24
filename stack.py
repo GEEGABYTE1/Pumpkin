@@ -26,7 +26,7 @@ class Stack:
             new_node.set_link(self.top_item)
             self.top_item = new_node 
             self.size += 1
-            self.nodes.append(new_node)
+            self.nodes.append(new_value)
         else:
             print("The Stack is Full")
 

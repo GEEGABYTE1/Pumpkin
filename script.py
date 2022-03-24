@@ -29,10 +29,32 @@ class Script:
     
     def vote(self):
         try:
-            current_node = self.front_stack.top_item
+            vote = False
+            current_node = self.background_stack.top_item
+            user_vote = str(input('Please type in your vote: '))
+            user_vote = user_vote.strip(' ')
             while current_node:
                 if current_node.get_value() != None:
-                    pass
+                    current_node_transaction = current_node.get_value().transactions
+                    current_node_message = current_node_transaction['Message']
+                    if current_node_message == user_vote:
+                        current_node.get_value().vote_count += 1
+                        for block in self.pumpkin:
+                            block_transaction = block.transactions
+                            block_message = block_transaction['Message']
+                            if block_message == current_node_message:
+                                block.vote_count += 1
+                            else:
+                                continue 
+                        vote = True
+                        break 
+                    else:
+                        current_node = current_node.get_link()
+            
+            if vote == False:
+                print(colored("Vote was not Successful", 'red'))
+            else:
+                print(colored('Vote was Successful', 'green'))
         except:
             print(colored("There are currently no votes made", 'red'))
 
