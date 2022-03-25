@@ -60,7 +60,7 @@ class GlobalChat():
                     current_node = current_node.get_link()
 
             self.add_to_chat(string_date=string_date, runtime=runtime)
-            self.restart
+        
                     
 
 
@@ -74,12 +74,7 @@ class GlobalChat():
 
     
             
-    def restart(self):
-        print("\n")
-        import sys
-        print("Updating the database")
-        import os
-        os.execv(sys.executable, ['python'] + sys.argv)
+    
 
 
 running = Colony()
