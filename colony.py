@@ -24,6 +24,7 @@ class Colony:
     user = None
     text_colors = ['grey', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white']
     cost = 100
+    purchased_color = None
     
     def __init__(self):
         self.initialize_chain()
@@ -91,6 +92,7 @@ class Buy:
                             transaction_by_user = {'Color': user_des_color, 'Amount': amount_of_cost}
                             transaction_chain.add_block(transaction_by_user)
                             print(colored('Transaction Sucessful', 'green'))
+                            runtime.purchased_color = user_des_color
                         else:
                             print(colored('You do not have enough funds.', 'red'))
                             time.sleep(0.2)
@@ -139,7 +141,12 @@ class GlobalChat():
                     current_data = current_node.get_value()
                     message = colored(current_data['Message'], 'white')
                     date = colored(current_data['Date'], 'yellow')
-                    specified_user = colored(current_data['User'], 'blue')
+                    user_color = 'white'
+                    if runtime.purchased_color == None:
+                        pass 
+                    else:
+                        user_color = runtime.purchased_color
+                    specified_user = colored(current_data['User'], user_color)
                     print('\n')
                     print(specified_user)
                     print(colored('*'*len(specified_user), 'white'))
