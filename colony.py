@@ -1,10 +1,13 @@
+from tokenize import Double
 from script import Script
 from blockchain import Blockchain
 from random import random
 from termcolor import colored
+from linkedlist import DoubleLinkedList
 import time
-from pymongo import MongoClient
+
 from datetime import datetime
+
 
 
 seed = Blockchain()
@@ -26,42 +29,47 @@ class Colony:
                 server_runtime.chat(runtime=self)
             
 
-
+chat = DoubleLinkedList()
 class GlobalChat():
-    cluster = MongoClient('mongodb+srv://user:pass@seed.10ntx.mongodb.net/myFirstDatabase?retryWrites=true&w=majority')
-    db = cluster['seed']['messaging']
-    all_messages = db.find({})
-    chats = {}
-    restart = False
-    db.insert_one({'Id': 'First', 'Message': 'Initial', 'Date': 'First', 'Time': 'Beginning'})
+
+    def chat(self, runtime):
+        date = datetime.now()
+        string_date = date.strftime('%x')
+        current_node = chat.head_node 
+        if current_node == None:
+            print(colored("There are no chats", 'red'))
+            dictionary = {'Message': 'Beginning of Chat', 'Date': string_date, 'User': 'Headless Horseman'}
+            chat.add_to_head(dictionary)
+        else:
+            while current_node:
+                if current_node.get_value() != None:
+                    current_data = current_node.get_value()
+                    message = colored(current_data['Message'], 'white')
+                    date = colored(current_data['Date'], 'yellow')
+                    specified_user = colored(current_data['User'], 'blue')
+                    print(specified_user)
+                    print('*'*6, 'white')
+                    print('{}: {}'.format(date, message))     
+                    time.sleep(0.1)
+                    print('-'*24)
+                    print('\n')
+                    current_node = current_node.get_link()
+                else:
+                    current_node = current_node.get_link()
+                    
+            self.add_to_chat(string_date=string_date)
+                    
+
+
+
+            
+    def add_to_chat(self, string_date):
+        user_message = str(input(''': '''))
+        user_user = runtime.user
+        dictionary = {'Message': user_message, 'Date': string_date, 'User': user_user}
+        chat.add_to_head(dictionary)
 
     
-    def chat(self, runtime):
-        while True:
-            date = datetime.now().strftime('%x')
-            for message in self.all_messages:
-                try:
-                    if date != message['Date']:
-                        print(colored('Today: {}'.format(message['Time']), 'red'))
-                    print(colored("{} ~ {}".format(message['Date'], message['Time']), "red"))
-                    print(colored("From: ", 'green'), message['Id'])
-                    print(colored("Message: ", 'green'), message['Message'])
-                    print('-'*25)
-                except:
-                    pass
-            
-            
-            person = 'Name: {}'.format(runtime.user) 
-            message = input('Message: ')
-            if message == '/quit':
-                break 
-            elif message == '/update':
-                self.restart()
-            else:
-                time = datetime.now().strftime("%X")
-                msg = {"Id": person, "Message": message, "Date": date, "Time":time}
-                self.db.insert_one(msg)
-                print('-'*25)
             
     def restart(self):
         print("\n")
