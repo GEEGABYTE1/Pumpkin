@@ -1,4 +1,7 @@
 
+from cgitb import text
+from tkinter import E
+from block import Block
 from script import Script
 from seed_blockchain import Blockchain
 from random import random
@@ -12,19 +15,26 @@ from datetime import datetime
 
 
 seed = Blockchain()
+transaction_chain = Blockchain()
 
 
 
 class Colony:
+    
     user = None
-    text_colors = {'grey': random.randint(1, 100), 'red':random.randint(1, 100), 'green':random.randint(1, 100), 'yellow':random.randint(1, 100), 'blue':random.randint(1, 100), 'magenta':random.randint(1, 100), 'cyan':random.randint(1, 100), 'white':random.randint(1, 100)}
+    text_colors = ['grey', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white']
+    for colour in text_colors:
+        transaction = {'Color': colour}
+        seed.add_block(transaction)
+    cost = 100
+    
 
     def __init__(self):
         user_user = str(input('Desired Username: '))
         self.user = user_user.strip(' ')
         print(colored('Successful! You are now named {}'.format(self.user)))
+        
         while True:
-            
             user_input = str(input(': '))
             if user_input == '/global_chat':
                 server_runtime = GlobalChat()
@@ -32,16 +42,18 @@ class Colony:
             elif user_input == '/init_vote':
                 runtime_vote = Script()
             elif user_input == '/buy':
-                buying_session = Buy()
-    
-    
+                buying_session = Buy(runtime=self)
+            
+
+            cost_increment = random.randint(1, 150)
+            self.cost += cost_increment - (cost_increment * 0.03)
                 
 
 class Buy:
 
-    def user_buy(self):
+    def user_buy(self, runtime):
         time.sleep(0.2)
-        self.view_shop()
+        self.view_shop(runtime)
         time.sleep(0.2)
         user_inter = str(input('Would you like to buy something? (type y/n): '))
         user_inter = user_inter.lower()
@@ -53,17 +65,48 @@ class Buy:
             user_des_color = user_des_color.lower()
             user_des_color.strip(' ')
             for block in seed.chain:
-                pass
-                
+                colour_dict = block.transactions
+                colour_dict_colour = colour_dict['Color']
+                if colour_dict_colour == user_des_color:
+                    amount_of_cost = block.amount
+                    print('{} will be buying {c} for {a}'.format(runtime.user_user, c=user_des_color, a=amount_of_cost))
+                    print('-'*24)
+                    user_check = str(input('Would you like to confirm? (type y/n): '))
+                    user_check = user_check.strip(" ")
+                    user_check = user_check.lower()
+                    if user_check == 'y':
+                        if runtime.cost >= amount_of_cost:
+                            runtime.cost -= amount_of_cost
+                            transaction_by_user = {'Color': user_des_color, 'Amount': amount_of_cost}
+                            transaction_chain.add_block(transaction_by_user)
+                            print(colored('Transaction Sucessful', 'green'))
+                        else:
+                            print(colored('You do not have enough funds.', 'red'))
+                            time.sleep(0.2)
+                            print(colored('You have: {} where {} costs: {} '.format(runtime.cost, user_des_color, amount_of_cost), 'red'))
+                    else:
+                        print(colored('You have left the buying process'))
+                        break 
+                else:
+                    continue 
+                      
 
 
     def view_shop(runtime):
         colors = runtime.text_colors
         print(colored('Current Colour Rates: '), 'Blue')
-        for color, rate in colors.items():
-            print('\n')
-            print(colored('{}: {} seeds'.format(color, rate), 'white'))
-            print('-'*24)
+        for block in seed.chain:
+            block_trans = block.transactions
+            block_trans_colour = block_trans['Color']
+            for colour in colors:
+                if colour == block_trans_colour:
+                    rate = block.amount
+                    print('{}: {}'.format(colour, rate))
+                    break 
+                else:
+                    continue
+                    
+            
 
 
                 

@@ -1,4 +1,4 @@
-from block import Block
+from seed_block import Block
 import random
 
 class Blockchain:
@@ -6,8 +6,7 @@ class Blockchain:
         self.chain = []
         self.unconfirmed_transactions = []
         self.genesis_block()
-        self.amount = 0 
-        self.colors = [] 
+        
 
     def genesis_block(self):        
         transactions = []
@@ -17,9 +16,10 @@ class Blockchain:
 
     def add_block(self, transactions):
         previous_hash = (self.chain[len(self.chain) - 1]).hash
-        new_block = Block(transactions, previous_hash)
+        amount = random.randint(200, 6310)
+        new_block = Block(transactions, previous_hash, amount)
         new_block.generate_hash()
-        # proof = proof_of_work(block)
+        proof = self.proof_of_work(new_block)
         self.chain.append(new_block)
         result = self.validate_chain()
         print(result)
