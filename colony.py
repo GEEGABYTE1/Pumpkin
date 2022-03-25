@@ -1,4 +1,4 @@
-from tokenize import Double
+
 from script import Script
 from blockchain import Blockchain
 from random import random
@@ -28,6 +28,10 @@ class Colony:
             if user_input == '/global_chat':
                 server_runtime = GlobalChat()
                 server_runtime.chat(runtime=self)
+            elif user_input == '/init_vote':
+                runtime_vote = Script()
+                
+                
             
 
 chat = DoubleLinkedList()
