@@ -72,7 +72,7 @@ class GlobalChat():
         user_message = str(input(''': '''))
         user_user = runtime.user
         dictionary = {'Message': user_message, 'Date': string_date, 'User': user_user}
-        chat.add_to_head(dictionary)
+        chat.add_to_tail(dictionary)
 
     
             
