@@ -25,7 +25,7 @@ class DoubleLinkedList:
         self.tail_node = None 
     
     def add_to_head(self, new_value):
-        new_head = Node(new_value)
+        new_head = Node_Double(new_value)
         current_head = self.head_node 
         
         if current_head != None:

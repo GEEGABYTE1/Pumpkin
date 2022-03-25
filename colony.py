@@ -40,6 +40,7 @@ class GlobalChat():
             print(colored("There are no chats", 'red'))
             dictionary = {'Message': 'Beginning of Chat', 'Date': string_date, 'User': 'Headless Horseman'}
             chat.add_to_head(dictionary)
+            print(colored('Initial Chat Room Initialized', 'green'))
         else:
             while current_node:
                 if current_node.get_value() != None:
@@ -47,23 +48,25 @@ class GlobalChat():
                     message = colored(current_data['Message'], 'white')
                     date = colored(current_data['Date'], 'yellow')
                     specified_user = colored(current_data['User'], 'blue')
+                    print('\n')
                     print(specified_user)
-                    print('*'*6, 'white')
+                    print(colored('*'*len(specified_user), 'white'))
                     print('{}: {}'.format(date, message))     
                     time.sleep(0.1)
                     print('-'*24)
-                    print('\n')
+                    
                     current_node = current_node.get_link()
                 else:
                     current_node = current_node.get_link()
-                    
-            self.add_to_chat(string_date=string_date)
+
+            self.add_to_chat(string_date=string_date, runtime=runtime)
+            self.restart
                     
 
 
 
             
-    def add_to_chat(self, string_date):
+    def add_to_chat(self, string_date, runtime):
         user_message = str(input(''': '''))
         user_user = runtime.user
         dictionary = {'Message': user_message, 'Date': string_date, 'User': user_user}
