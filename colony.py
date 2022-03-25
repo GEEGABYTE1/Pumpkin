@@ -1,6 +1,6 @@
 
 from script import Script
-from blockchain import Blockchain
+from seed_blockchain import Blockchain
 from random import random
 from termcolor import colored
 from linkedlist import DoubleLinkedList
@@ -17,6 +17,7 @@ seed = Blockchain()
 
 class Colony:
     user = None
+    text_colors = {'grey': random.randint(1, 100), 'red':random.randint(1, 100), 'green':random.randint(1, 100), 'yellow':random.randint(1, 100), 'blue':random.randint(1, 100), 'magenta':random.randint(1, 100), 'cyan':random.randint(1, 100), 'white':random.randint(1, 100)}
 
     def __init__(self):
         user_user = str(input('Desired Username: '))
@@ -30,7 +31,41 @@ class Colony:
                 server_runtime.chat(runtime=self)
             elif user_input == '/init_vote':
                 runtime_vote = Script()
+            elif user_input == '/buy':
+                buying_session = Buy()
+    
+    
                 
+
+class Buy:
+
+    def user_buy(self):
+        time.sleep(0.2)
+        self.view_shop()
+        time.sleep(0.2)
+        user_inter = str(input('Would you like to buy something? (type y/n): '))
+        user_inter = user_inter.lower()
+        user_inter = user_inter.strip(' ')
+        if user_inter == 'n':
+            return 
+        else:
+            user_des_color = str(input('Type your desired colour: '))
+            user_des_color = user_des_color.lower()
+            user_des_color.strip(' ')
+            for block in seed.chain:
+                pass
+                
+
+
+    def view_shop(runtime):
+        colors = runtime.text_colors
+        print(colored('Current Colour Rates: '), 'Blue')
+        for color, rate in colors.items():
+            print('\n')
+            print(colored('{}: {} seeds'.format(color, rate), 'white'))
+            print('-'*24)
+
+
                 
             
 
