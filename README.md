@@ -23,6 +23,15 @@ All vote proposals are added to a layer 1 blockchain called `Pumpkin`
 
 # Buying
 
+Users can buy program cosmetics, which are colours of their usernames (which is prompted at the start) on global chat. 
+
+Everytime a user may run a command, the price of each colour changes ranging from 200 to 631 seeds (in-built currency). 
+
+Colours include: *grey, red, green, yellow, blue, magenta, cyan, white*
+
+Any user when initially logged in will start off with 100 seeds initially, and get somewhere from 1 - 150 each command they run depending on the randomness of the algorithm.
+
+The buying process is ran on a layer-2 network (one for the colour and the rates and the second one to keep track of transactions). 
 
 # Network Information
 
