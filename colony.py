@@ -5,6 +5,7 @@ from random import random
 from termcolor import colored
 from linkedlist import DoubleLinkedList
 import time
+from os import system
 
 from datetime import datetime
 
@@ -60,7 +61,8 @@ class GlobalChat():
                     current_node = current_node.get_link()
 
             self.add_to_chat(string_date=string_date, runtime=runtime)
-        
+            system('clear')
+
                     
 
 
