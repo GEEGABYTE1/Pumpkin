@@ -4,7 +4,7 @@ from tkinter import E
 from block import Block
 from script import Script
 from seed_blockchain import Blockchain
-from random import random
+from random import random, randint
 from termcolor import colored
 from linkedlist import DoubleLinkedList
 import time
@@ -23,13 +23,10 @@ class Colony:
     
     user = None
     text_colors = ['grey', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white']
-    for colour in text_colors:
-        transaction = {'Color': colour}
-        seed.add_block(transaction)
     cost = 100
     
-
     def __init__(self):
+        self.initialize_chain()
         user_user = str(input('Desired Username: '))
         self.user = user_user.strip(' ')
         print(colored('Successful! You are now named {}'.format(self.user)))
@@ -42,18 +39,30 @@ class Colony:
             elif user_input == '/init_vote':
                 runtime_vote = Script()
             elif user_input == '/buy':
-                buying_session = Buy(runtime=self)
+                buying_session = Buy()
+                buying_session.user_buy(runtime=self)
+            elif user_input == '/quit':
+                break
+            else:
+                print('You have typed the wrong command')
+            
             
 
-            cost_increment = random.randint(1, 150)
+            cost_increment = randint(1, 150)
             self.cost += cost_increment - (cost_increment * 0.03)
+    
+    def initialize_chain(self):
+        for colour in self.text_colors:
+            transaction = {'Color': colour}
+            seed.add_block(transaction)
+
                 
 
 class Buy:
 
     def user_buy(self, runtime):
         time.sleep(0.2)
-        self.view_shop(runtime)
+        self.view_shop(runtime=runtime)
         time.sleep(0.2)
         user_inter = str(input('Would you like to buy something? (type y/n): '))
         user_inter = user_inter.lower()
@@ -66,10 +75,12 @@ class Buy:
             user_des_color.strip(' ')
             for block in seed.chain:
                 colour_dict = block.transactions
+                if len(colour_dict) == 0:
+                    continue
                 colour_dict_colour = colour_dict['Color']
                 if colour_dict_colour == user_des_color:
                     amount_of_cost = block.amount
-                    print('{} will be buying {c} for {a}'.format(runtime.user_user, c=user_des_color, a=amount_of_cost))
+                    print('{} will be buying {c} for {a}'.format(runtime.user, c=user_des_color, a=amount_of_cost))
                     print('-'*24)
                     user_check = str(input('Would you like to confirm? (type y/n): '))
                     user_check = user_check.strip(" ")
@@ -92,11 +103,13 @@ class Buy:
                       
 
 
-    def view_shop(runtime):
+    def view_shop(self, runtime):
         colors = runtime.text_colors
         print(colored('Current Colour Rates: '), 'Blue')
         for block in seed.chain:
             block_trans = block.transactions
+            if len(block_trans) == 0:
+                continue
             block_trans_colour = block_trans['Color']
             for colour in colors:
                 if colour == block_trans_colour:
@@ -106,10 +119,6 @@ class Buy:
                 else:
                     continue
                     
-            
-
-
-                
             
 
 chat = DoubleLinkedList()

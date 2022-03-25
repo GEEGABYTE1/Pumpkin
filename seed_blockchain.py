@@ -10,16 +10,17 @@ class Blockchain:
 
     def genesis_block(self):        
         transactions = []
-        genesis_block = Block(transactions, "0")
+        genesis_block = Block(transactions, "0", random.randint(200, 631))
         genesis_block.generate_hash()
         self.chain.append(genesis_block)
 
     def add_block(self, transactions):
         previous_hash = (self.chain[len(self.chain) - 1]).hash
-        amount = random.randint(200, 6310)
+        amount = random.randint(200, 631)
         new_block = Block(transactions, previous_hash, amount)
         new_block.generate_hash()
         proof = self.proof_of_work(new_block)
+        print(proof)
         self.chain.append(new_block)
         result = self.validate_chain()
         print(result)
@@ -44,7 +45,7 @@ class Blockchain:
                 return False
         return True
 
-    def proof_of_work(self, block, difficulty=4):
+    def proof_of_work(self, block, difficulty=2):
         proof = block.generate_hash()
         while proof[:2] != "0" * difficulty:
             block.nonce += 1
