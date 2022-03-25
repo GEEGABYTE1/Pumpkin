@@ -35,8 +35,20 @@ The buying process is ran on a layer-2 network (one for the colour and the rates
 
 # Network Information
 
+There are two primariy networks that Pumpkin DAO runs on.
+
 ## Pumpkin 
+
+*Pumpkin* is a blockchain that supports the voting processes of all users. When users vote and create votes, all the data, and the votes that appear to a user is ran and decided by the random protocol of the *Pumpkin* Chain.
 
 ## Seed
 
+A Layer-2 network to suport the buying processes of cosmetics. The first layer chain is called *Seed* and supports the colours and the updated rates. The second one is a derivative of *Seed* that is emplaced to decentralized the transactions for security. 
+
+It should be mentioned that the *Seed* network changes the rates of the colours, and monitors transactions based on the user amount. Rates of colours are always changed when a user may prompt to go to a store from the range of 200-631 seeds. This insures that the program cannot be manipulated for biased prices.
+
 # More Information
+
+All networks have a difficuly of two zeros. This is because the network processes, such as voting and buying, take too long to run on a local enviornmennt. However, changes to servers and enviornments will be made to account for complex computations of the chain.
+
+Made by Jaival 🦖
